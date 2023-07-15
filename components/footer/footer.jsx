@@ -1,5 +1,160 @@
-import Image from 'next/image'
 import Link from 'next/link'
+import Image from 'next/image'
+import { PhoneIcon, EnvelopeIcon } from '@heroicons/react/20/solid'
+
+export default function Example() {
+  return (
+    <footer className='bg-white border-t-2' aria-labelledby='footer-heading'>
+      <h2 id='footer-heading' className='sr-only'>
+        Footer
+      </h2>
+      <div className='mx-auto max-w-7xl px-6 pb-8 pt-8 sm:pt-16 lg:px-8'>
+        <div className='xl:grid xl:grid-cols-3 xl:gap-8'>
+          <div className='space-y-4'>
+            <Link href='/' className='-m-1.5 p-1.5'>
+              <span className='sr-only'>Halo Insurance</span>
+              <Image
+                width={500}
+                height={500}
+                className='h-14 w-auto'
+                src='/favicon.png'
+                alt='navbar company logo'
+              />
+            </Link>
+            <Link
+              href='tel:5624470025'
+              className='flex flex-row gap-2 items-center w-max hover:bg-stone-100 p-2 rounded-lg'
+            >
+              <PhoneIcon className='h-7 w-6 text-gray-400' aria-hidden='true' />
+              <p> (562) 447-0025</p>
+            </Link>
+            <Link
+              href='mailto:halo@halo.com'
+              className='flex flex-row gap-2 items-center w-max hover:bg-stone-100 p-2 rounded-lg'
+            >
+              <EnvelopeIcon
+                className='h-7 w-6 text-gray-400'
+                aria-hidden='true'
+              />
+              <p> halo@halo.com</p>
+            </Link>
+            <p className='text-sm leading-6 text-gray-600'>
+              Let us take care of the unexpected, so you can focus on what
+              matters most.
+            </p>
+            {/* social media links */}
+            {/* <div className='flex space-x-6'>
+              {navigation.social.map((item) => (
+                <Link
+                  key={item.name}
+                  href={item.href}
+                  className='text-gray-400 hover:text-gray-500'
+                >
+                  <span className='sr-only'>{item.name}</span>
+                  <item.icon className='h-6 w-6' aria-hidden='true' />
+                </Link>
+              ))}
+            </div> */}
+          </div>
+          {/* website navigation links */}
+          <div className='mt-16 grid grid-cols-2 gap-8 xl:col-span-2 xl:mt-0'>
+            <div className='md:grid md:grid-cols-2 md:gap-8'>
+              <div>
+                <Link
+                  href='/products/explore-products'
+                  className='text-sm font-semibold leading-6 text-gray-900 p-2 hover:underline'
+                >
+                  Products
+                </Link>
+                <ul role='list' className='mt-6 space-y-4'>
+                  {navigation.solutions.map((item) => (
+                    <li key={item.name}>
+                      <Link
+                        href={item.href}
+                        className='text-sm leading-6 text-gray-600 hover:text-gray-900 hover:bg-stone-100 p-2 rounded-lg'
+                      >
+                        {item.name}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div className='mt-10 md:mt-0'>
+                <Link
+                  href='/company/faq'
+                  className='text-sm font-semibold leading-6 text-gray-900 p-2 hover:underline'
+                >
+                  Support
+                </Link>
+                <ul role='list' className='mt-6 space-y-4'>
+                  {navigation.support.map((item) => (
+                    <li key={item.name}>
+                      <Link
+                        href={item.href}
+                        className='text-sm leading-6 text-gray-600 hover:text-gray-900 hover:bg-stone-100 p-2 rounded-lg'
+                      >
+                        {item.name}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+            <div className='md:grid md:grid-cols-2 md:gap-8'>
+              <div>
+                <Link
+                  href='/company/about'
+                  className='text-sm font-semibold leading-6 text-gray-900 p-2 hover:underline'
+                >
+                  Company
+                </Link>
+                <ul role='list' className='mt-6 space-y-4'>
+                  {navigation.company.map((item) => (
+                    <li key={item.name}>
+                      <Link
+                        href={item.href}
+                        className='text-sm leading-6 text-gray-600 hover:text-gray-900 hover:bg-stone-100 p-2 rounded-lg'
+                      >
+                        {item.name}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div className='mt-10 md:mt-0'>
+                <Link
+                  href='/company/terms'
+                  className='text-sm font-semibold leading-6 text-gray-900 p-2 hover:underline'
+                >
+                  Legal
+                </Link>
+                <ul role='list' className='mt-6 space-y-4'>
+                  {navigation.legal.map((item) => (
+                    <li key={item.name}>
+                      <Link
+                        href={item.href}
+                        className='text-sm leading-6 text-gray-600 hover:text-gray-900 hover:bg-stone-100 p-2 rounded-lg'
+                      >
+                        {item.name}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className='mt-16 border-t border-gray-900/10 pt-8 sm:mt-20 lg:mt-24'>
+          <p className='text-xs leading-5 text-gray-500'>
+            &copy; {new Date().getFullYear()} Halo Insurance. All rights
+            reserved.
+          </p>
+        </div>
+      </div>
+    </footer>
+  )
+}
+
 const navigation = {
   solutions: [
     { name: 'Insurance', href: '#' },
@@ -8,9 +163,10 @@ const navigation = {
     { name: 'Insights', href: '#' },
   ],
   support: [
-    { name: 'Pricing', href: '#' },
+    { name: 'Pricing', href: '/products/explore-products' },
     { name: 'Documentation', href: '#' },
     { name: 'Guides', href: '#' },
+    { name: 'FAQ', href: '/resources/faq' },
   ],
   company: [
     { name: 'About', href: '#' },
@@ -18,9 +174,9 @@ const navigation = {
     { name: 'Partners', href: '#' },
   ],
   legal: [
-    { name: 'Claim', href: '#' },
-    { name: 'Privacy', href: '#' },
-    { name: 'Terms', href: '#' },
+    { name: 'Claim', href: '/company/claims' },
+    { name: 'Privacy', href: '/company/privacy' },
+    { name: 'Terms', href: '/company/terms' },
   ],
   social: [
     {
@@ -59,126 +215,4 @@ const navigation = {
       ),
     },
   ],
-}
-
-export default function Example() {
-  return (
-    <footer className='bg-white' aria-labelledby='footer-heading'>
-      <h2 id='footer-heading' className='sr-only'>
-        Footer
-      </h2>
-      <div className='mx-auto max-w-7xl px-6 pb-8 pt-16 sm:pt-24 lg:px-8 lg:pt-32'>
-        <div className='xl:grid xl:grid-cols-3 xl:gap-8'>
-          <div className='space-y-8'>
-            <Link href='/' className='-m-1.5 p-1.5'>
-              <span className='sr-only'>Halo Insurance</span>
-              <Image
-                width={500}
-                height={500}
-                className='h-14 w-auto'
-                src='/favicon.png'
-                alt='navbar company logo'
-              />
-            </Link>
-            <p className='text-sm leading-6 text-gray-600'>
-              Let us take care of the unexpected, so you can focus on what
-              matters most!
-            </p>
-            <div className='flex space-x-6'>
-              {navigation.social.map((item) => (
-                <Link
-                  key={item.name}
-                  href={item.href}
-                  className='text-gray-400 hover:text-gray-500'
-                >
-                  <span className='sr-only'>{item.name}</span>
-                  <item.icon className='h-6 w-6' aria-hidden='true' />
-                </Link>
-              ))}
-            </div>
-          </div>
-          <div className='mt-16 grid grid-cols-2 gap-8 xl:col-span-2 xl:mt-0'>
-            <div className='md:grid md:grid-cols-2 md:gap-8'>
-              <div>
-                <h3 className='text-sm font-semibold leading-6 text-gray-900 p-2'>
-                  Services
-                </h3>
-                <ul role='list' className='mt-6 space-y-4'>
-                  {navigation.solutions.map((item) => (
-                    <li key={item.name}>
-                      <Link
-                        href={item.href}
-                        className='text-sm leading-6 text-gray-600 hover:text-gray-900 hover:bg-stone-100 p-2 rounded-lg'
-                      >
-                        {item.name}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <div className='mt-10 md:mt-0'>
-                <h3 className='text-sm font-semibold leading-6 text-gray-900 p-2'>
-                  Support
-                </h3>
-                <ul role='list' className='mt-6 space-y-4'>
-                  {navigation.support.map((item) => (
-                    <li key={item.name}>
-                      <Link
-                        href={item.href}
-                        className='text-sm leading-6 text-gray-600 hover:text-gray-900 hover:bg-stone-100 p-2 rounded-lg'
-                      >
-                        {item.name}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-            <div className='md:grid md:grid-cols-2 md:gap-8'>
-              <div>
-                <h3 className='text-sm font-semibold leading-6 text-gray-900 p-2'>
-                  Company
-                </h3>
-                <ul role='list' className='mt-6 space-y-4'>
-                  {navigation.company.map((item) => (
-                    <li key={item.name}>
-                      <Link
-                        href={item.href}
-                        className='text-sm leading-6 text-gray-600 hover:text-gray-900 hover:bg-stone-100 p-2 rounded-lg'
-                      >
-                        {item.name}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <div className='mt-10 md:mt-0'>
-                <h3 className='text-sm font-semibold leading-6 text-gray-900 p-2'>
-                  Legal
-                </h3>
-                <ul role='list' className='mt-6 space-y-4'>
-                  {navigation.legal.map((item) => (
-                    <li key={item.name}>
-                      <Link
-                        href={item.href}
-                        className='text-sm leading-6 text-gray-600 hover:text-gray-900 hover:bg-stone-100 p-2 rounded-lg'
-                      >
-                        {item.name}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className='mt-16 border-t border-gray-900/10 pt-8 sm:mt-20 lg:mt-24'>
-          <p className='text-xs leading-5 text-gray-500'>
-            &copy; {new Date().getFullYear()} Halo Insurance. All rights
-            reserved.
-          </p>
-        </div>
-      </div>
-    </footer>
-  )
 }

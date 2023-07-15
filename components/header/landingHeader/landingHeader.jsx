@@ -1,5 +1,8 @@
 import Image from 'next/image'
-export default function LandingHeader() {
+import Link from 'next/link'
+import { createClient } from 'next-sanity'
+
+export default function LandingHeader({ landingHeader }) {
   return (
     <div className='relative isolate'>
       <svg
@@ -58,33 +61,41 @@ export default function LandingHeader() {
         </svg>
       </div>
       <div className='overflow-hidden'>
-        <div className='mx-auto max-w-7xl px-6 pb-32 pt-12 lg:px-8 lg:pt-12'>
+        <div className='mx-auto max-w-7xl px-6 pb-20 pt-4 lg:px-8 lg:pt-12'>
           <div className='mx-auto max-w-2xl gap-x-14 lg:mx-0 lg:flex lg:max-w-none lg:items-center'>
             <div className='w-full max-w-xl lg:shrink-0 xl:max-w-2xl'>
               <h1 className='text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl'>
                 Experience peace of mind with our comprehensive coverage.
               </h1>
-              <p className='relative mt-6 text-lg leading-8 text-gray-600 sm:max-w-md lg:max-w-none'>
-                Halo Insurance is dedicated to cupidatat minim id magna ipsum
-                sint dolor qui. Sunt sit in quis cupidatat mollit aute velit. Et
-                labore commodo nulla aliqua proident mollit ullamco exercitation
-                tempor. Sint aliqua anim nulla sunt mollit id pariatur in
-                voluptate cillum.
-              </p>
+              {landingHeader?.length > 0 &&
+                landingHeader?.map((landingText) => (
+                  <p
+                    key={landingText?._id}
+                    className='relative mt-6 text-lg leading-8 text-gray-600 sm:max-w-md lg:max-w-none'
+                  >
+                    {landingText?.landingHeaderText}
+                  </p>
+                ))}
+              {!landingHeader?.length > 0 && <p>Error fetching content.</p>}
               <div className='mt-10 flex items-center gap-x-6'>
                 {/* TODO: change link */}
-                <a
-                  href='#'
-                  className='rounded-md bg-sky-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-sky-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600'
+                <Link
+                  href='/products/explore-products'
+                  className='rounded-md bg-sky-600 px-3.5 py-2.5
+                  text-sm font-semibold text-white shadow-sm hover:bg-sky-500
+                  focus-visible:outline focus-visible:outline-2
+                  focus-visible:outline-offset-2
+                  focus-visible:outline-indigo-600'
                 >
                   Get started
-                </a>
-                <a
-                  href='/contact'
-                  className='text-sm font-semibold leading-6 text-gray-900'
+                </Link>
+                <Link
+                  href='/company/contact'
+                  className='text-sm font-semibold leading-6
+                  text-gray-900 hover:underline hover:opacity-80'
                 >
                   Contact us <span aria-hidden='true'>→</span>
-                </a>
+                </Link>
               </div>
             </div>
             <div className='mt-14 flex justify-end gap-8 sm:-mt-44 sm:justify-start sm:pl-20 lg:mt-0 lg:pl-0'>

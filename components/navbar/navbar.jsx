@@ -1,85 +1,59 @@
-import Image from 'next/image'
-import {} from '@heroicons/react/24/outline'
 import { Fragment, useState } from 'react'
+import Image from 'next/image'
+import CallAgent from '../header/landingHeader/callAgent'
+import Link from 'next/link'
+import {
+  ChatBubbleBottomCenterTextIcon,
+  ClipboardDocumentIcon,
+  CurrencyDollarIcon,
+  HandThumbUpIcon,
+  LightBulbIcon,
+  LinkIcon,
+  RectangleStackIcon,
+  UsersIcon,
+} from '@heroicons/react/24/outline'
 import { Dialog, Disclosure, Popover, Transition } from '@headlessui/react'
 import {
-  ArrowPathIcon,
   Bars3Icon,
-  ChartPieIcon,
-  CursorArrowRaysIcon,
   FingerPrintIcon,
-  SquaresPlusIcon,
   XMarkIcon,
+  UserGroupIcon,
+  HeartIcon,
 } from '@heroicons/react/24/outline'
 import {
   ChevronDownIcon,
+  EnvelopeIcon,
   PhoneIcon,
   PlayCircleIcon,
 } from '@heroicons/react/20/solid'
-import logo from '../../public/favicon.png'
-import CallAgent from '../header/landingHeader/callAgent'
-
-const products = [
-  {
-    name: 'Get a quote',
-    description: 'Sint aliqua anim nulla sunt mollit id pariatur',
-    href: '#',
-    icon: ChartPieIcon,
-  },
-  {
-    name: 'Insurance packages',
-    description: 'Sint aliqua anim nulla sunt mollit id pariatur',
-    href: '#',
-    icon: CursorArrowRaysIcon,
-  },
-  {
-    name: 'Security',
-    description: 'Sint aliqua anim nulla sunt mollit id pariatur',
-    href: '#',
-    icon: FingerPrintIcon,
-  },
-  {
-    name: 'Integrations',
-    description: 'Sint aliqua anim nulla sunt mollit id pariatur',
-    href: '#',
-    icon: SquaresPlusIcon,
-  },
-  {
-    name: 'Automations',
-    description: 'Sint aliqua anim nulla sunt mollit id pariatur',
-    href: '#',
-    icon: ArrowPathIcon,
-  },
-]
-const callsToAction = [
-  { name: 'Watch demo', href: '#', icon: PlayCircleIcon },
-  { name: 'Contact sales', href: '#', icon: PhoneIcon },
-]
-
-function classNames(...classes) {
-  return classes.filter(Boolean).join(' ')
-}
 
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   return (
     <header className='bg-white'>
+      {/*
+       ***********************
+       *
+       * Large viewport navbar
+       *
+       * *********************
+       */}
       <nav
         className='mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8'
         aria-label='Global'
       >
         <div className='flex lg:flex-1'>
-          <a href='#' className='-m-1.5 p-1.5'>
+          <Link href='/' className='-m-1.5 p-1.5'>
             <span className='sr-only'>Halo Insurance</span>
             <Image
               width={200}
               height={200}
-              className='h-8 w-auto'
+              className='h-12 w-auto'
               src='/favicon.png'
               alt='navbar company logo'
             />
-          </a>
+          </Link>
         </div>
         <div className='flex lg:hidden'>
           <button
@@ -92,9 +66,72 @@ export default function Navbar() {
           </button>
         </div>
         <Popover.Group className='hidden lg:flex lg:gap-x-12'>
+          {/* products dropdown menu */}
           <Popover className='relative'>
-            <Popover.Button className='flex items-center gap-x-1 text-sm font-semibold leading-6 text-gray-900'>
-              Services
+            <Popover.Button className='flex items-center gap-x-1 text-sm font-semibold leading-6 text-gray-900 hover:underline hover:opacity-80'>
+              Products
+              <ChevronDownIcon
+                className='h-5 w-5 flex-none text-gray-400'
+                aria-hidden='true'
+              />
+            </Popover.Button>
+            <Transition
+              as={Fragment}
+              enter='transition ease-out duration-200'
+              enterFrom='opacity-0 translate-y-1'
+              enterTo='opacity-100 translate-y-0'
+              leave='transition ease-in duration-150'
+              leaveFrom='opacity-100 translate-y-0'
+              leaveTo='opacity-0 translate-y-1'
+            >
+              <Popover.Panel className='absolute -left-8 top-full z-10 mt-3 w-screen max-w-md overflow-hidden rounded-3xl bg-white shadow-lg ring-1 ring-gray-900/5'>
+                <div className='p-4'>
+                  {products.map((item) => (
+                    <div
+                      key={item.name}
+                      className='group relative flex items-center gap-x-6 rounded-lg p-4 text-sm leading-6 hover:bg-gray-50 '
+                    >
+                      <div className='flex h-11 w-11 flex-none items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white'>
+                        <item.icon
+                          className='h-6 w-6 text-gray-600 group-hover:text-sky-600'
+                          aria-hidden='true'
+                        />
+                      </div>
+                      <div className='flex-auto'>
+                        <Link
+                          href={item.href}
+                          className='block font-semibold text-gray-900'
+                        >
+                          {item.name}
+                          <span className='absolute inset-0' />
+                        </Link>
+                        <p className='mt-1 text-gray-600'>{item.description}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                <div className='grid grid-cols-2 divide-x divide-gray-900/5 bg-gray-50'>
+                  {productsCallsToAction.map((item) => (
+                    <Link
+                      key={item.name}
+                      href={item.href}
+                      className='flex items-center justify-center gap-x-2.5 p-3 text-sm font-semibold leading-6 text-gray-900 hover:bg-gray-100'
+                    >
+                      <item.icon
+                        className='h-5 w-5 flex-none text-gray-400'
+                        aria-hidden='true'
+                      />
+                      {item.name}
+                    </Link>
+                  ))}
+                </div>
+              </Popover.Panel>
+            </Transition>
+          </Popover>
+          {/* resources dropdown menu */}
+          <Popover className='relative'>
+            <Popover.Button className='flex items-center gap-x-1 text-sm font-semibold leading-6 text-gray-900 hover:underline hover:opacity-80'>
+              Resources
               <ChevronDownIcon
                 className='h-5 w-5 flex-none text-gray-400'
                 aria-hidden='true'
@@ -112,10 +149,10 @@ export default function Navbar() {
             >
               <Popover.Panel className='absolute -left-8 top-full z-10 mt-3 w-screen max-w-md overflow-hidden rounded-3xl bg-white shadow-lg ring-1 ring-gray-900/5'>
                 <div className='p-4'>
-                  {products.map((item) => (
+                  {resources.map((item) => (
                     <div
                       key={item.name}
-                      className='group relative flex items-center gap-x-6 rounded-lg p-4 text-sm leading-6 hover:bg-gray-50'
+                      className='group relative flex items-center gap-x-6 rounded-lg p-4 text-sm leading-6 hover:bg-gray-50 '
                     >
                       <div className='flex h-11 w-11 flex-none items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white'>
                         <item.icon
@@ -124,21 +161,68 @@ export default function Navbar() {
                         />
                       </div>
                       <div className='flex-auto'>
-                        <a
+                        <Link
                           href={item.href}
                           className='block font-semibold text-gray-900'
                         >
                           {item.name}
                           <span className='absolute inset-0' />
-                        </a>
+                        </Link>
+                        <p className='mt-1 text-gray-600'>{item.description}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </Popover.Panel>
+            </Transition>
+          </Popover>
+          {/* company dropdown menu */}
+          <Popover className='relative'>
+            <Popover.Button className='flex items-center gap-x-1 text-sm font-semibold leading-6 text-gray-900 hover:underline hover:opacity-80'>
+              Company
+              <ChevronDownIcon
+                className='h-5 w-5 flex-none text-gray-400'
+                aria-hidden='true'
+              />
+            </Popover.Button>
+            <Transition
+              as={Fragment}
+              enter='transition ease-out duration-200'
+              enterFrom='opacity-0 translate-y-1'
+              enterTo='opacity-100 translate-y-0'
+              leave='transition ease-in duration-150'
+              leaveFrom='opacity-100 translate-y-0'
+              leaveTo='opacity-0 translate-y-1'
+            >
+              <Popover.Panel className='absolute -left-8 top-full z-10 mt-3 w-screen max-w-md overflow-hidden rounded-3xl bg-white shadow-lg ring-1 ring-gray-900/5'>
+                <div className='p-4'>
+                  {company.map((item) => (
+                    <div
+                      key={item.name}
+                      className='group relative flex items-center gap-x-6 rounded-lg p-4 text-sm leading-6 hover:bg-gray-50 '
+                    >
+                      <div className='flex h-11 w-11 flex-none items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white'>
+                        <item.icon
+                          className='h-6 w-6 text-gray-600 group-hover:text-sky-600'
+                          aria-hidden='true'
+                        />
+                      </div>
+                      <div className='flex-auto'>
+                        <Link
+                          href={item.href}
+                          className='block font-semibold text-gray-900'
+                        >
+                          {item.name}
+                          <span className='absolute inset-0' />
+                        </Link>
                         <p className='mt-1 text-gray-600'>{item.description}</p>
                       </div>
                     </div>
                   ))}
                 </div>
                 <div className='grid grid-cols-2 divide-x divide-gray-900/5 bg-gray-50'>
-                  {callsToAction.map((item) => (
-                    <a
+                  {companyCallsToAction.map((item) => (
+                    <Link
                       key={item.name}
                       href={item.href}
                       className='flex items-center justify-center gap-x-2.5 p-3 text-sm font-semibold leading-6 text-gray-900 hover:bg-gray-100'
@@ -148,42 +232,31 @@ export default function Navbar() {
                         aria-hidden='true'
                       />
                       {item.name}
-                    </a>
+                    </Link>
                   ))}
                 </div>
               </Popover.Panel>
             </Transition>
           </Popover>
-
-          <a href='#' className='text-sm font-semibold leading-6 text-gray-900'>
-            Features
-          </a>
-          <a
-            href='/testimonials'
-            className='text-sm font-semibold leading-6 text-gray-900'
-          >
-            Testimonials
-          </a>
-          <a
-            href='/about'
-            className='text-sm font-semibold leading-6 text-gray-900'
-          >
-            Company
-          </a>
-          <a
-            href='/contact'
-            className='text-sm font-semibold leading-6 text-gray-900'
+          {/* contact nav link */}
+          <Link
+            href='/company/contact'
+            className='text-sm font-semibold leading-6 text-gray-900 hover:underline hover:opacity-80'
           >
             Contact Us
-          </a>
+          </Link>
         </Popover.Group>
         <div className='hidden lg:flex lg:flex-1 lg:justify-end'>
-          {/* <a href='#' className='text-sm font-semibold leading-6 text-gray-900'>
-            Call an agent <span aria-hidden='true'>&rarr;</span>
-          </a> */}
           <CallAgent />
         </div>
       </nav>
+      {/*
+       ***********************
+       *
+       * Mobile hamburger menu
+       *
+       * *********************
+       */}
       <Dialog
         as='div'
         className='lg:hidden'
@@ -193,7 +266,7 @@ export default function Navbar() {
         <div className='fixed inset-0 z-10' />
         <Dialog.Panel className='fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10'>
           <div className='flex items-center justify-between'>
-            <a href='#' className='-m-1.5 p-1.5'>
+            <Link href='#' className='-m-1.5 p-1.5'>
               <span className='sr-only'>Halo Insurance</span>
               <Image
                 className='h-8 w-auto'
@@ -202,7 +275,7 @@ export default function Navbar() {
                 height={200}
                 alt='navbar company logo'
               />
-            </a>
+            </Link>
             <button
               type='button'
               className='-m-2.5 rounded-md p-2.5 text-gray-700'
@@ -215,11 +288,12 @@ export default function Navbar() {
           <div className='mt-6 flow-root'>
             <div className='-my-6 divide-y divide-gray-500/10'>
               <div className='space-y-2 py-6'>
+                {/* products dropdown menu */}
                 <Disclosure as='div' className='-mx-3'>
                   {({ open }) => (
                     <>
                       <Disclosure.Button className='flex w-full items-center justify-between rounded-lg py-2 pl-3 pr-3.5 text-base font-semibold leading-7 hover:bg-gray-50'>
-                        Services
+                        Products
                         <ChevronDownIcon
                           className={classNames(
                             open ? 'rotate-180' : '',
@@ -229,7 +303,7 @@ export default function Navbar() {
                         />
                       </Disclosure.Button>
                       <Disclosure.Panel className='mt-2 space-y-2'>
-                        {[...products, ...callsToAction].map((item) => (
+                        {[...products, ...productsCallsToAction].map((item) => (
                           <Disclosure.Button
                             key={item.name}
                             as='a'
@@ -243,28 +317,95 @@ export default function Navbar() {
                     </>
                   )}
                 </Disclosure>
-                <a
-                  href='#'
+                {/* resources dropdown menu */}
+                <Disclosure as='div' className='-mx-3'>
+                  {({ open }) => (
+                    <>
+                      <Disclosure.Button className='flex w-full items-center justify-between rounded-lg py-2 pl-3 pr-3.5 text-base font-semibold leading-7 hover:bg-gray-50'>
+                        Resources
+                        <ChevronDownIcon
+                          className={classNames(
+                            open ? 'rotate-180' : '',
+                            'h-5 w-5 flex-none'
+                          )}
+                          aria-hidden='true'
+                        />
+                      </Disclosure.Button>
+                      <Disclosure.Panel className='mt-2 space-y-2'>
+                        {[...resources].map((item) => (
+                          <Disclosure.Button
+                            key={item.name}
+                            as='a'
+                            href={item.href}
+                            className='block rounded-lg py-2 pl-6 pr-3 text-sm font-semibold leading-7 text-gray-900 hover:bg-gray-50'
+                          >
+                            {item.name}
+                          </Disclosure.Button>
+                        ))}
+                      </Disclosure.Panel>
+                    </>
+                  )}
+                </Disclosure>
+                {/* company dropdown menu */}
+                <Disclosure as='div' className='-mx-3'>
+                  {({ open }) => (
+                    <>
+                      <Disclosure.Button className='flex w-full items-center justify-between rounded-lg py-2 pl-3 pr-3.5 text-base font-semibold leading-7 hover:bg-gray-50'>
+                        Company
+                        <ChevronDownIcon
+                          className={classNames(
+                            open ? 'rotate-180' : '',
+                            'h-5 w-5 flex-none'
+                          )}
+                          aria-hidden='true'
+                        />
+                      </Disclosure.Button>
+                      <Disclosure.Panel className='mt-2 space-y-2'>
+                        {[...company, ...companyCallsToAction].map((item) => (
+                          <Disclosure.Button
+                            key={item.name}
+                            as='a'
+                            href={item.href}
+                            className='block rounded-lg py-2 pl-6 pr-3 text-sm font-semibold leading-7 text-gray-900 hover:bg-gray-50'
+                          >
+                            {item.name}
+                          </Disclosure.Button>
+                        ))}
+                      </Disclosure.Panel>
+                    </>
+                  )}
+                </Disclosure>
+                {/* Contact us nav link */}
+                <Link
+                  href='/company/contact'
                   className='-mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50'
                 >
-                  Features
-                </a>
-                <a
-                  href='/testimonials'
-                  className='-mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50'
-                >
-                  Testimonials
-                </a>
-                <a
-                  href='/about'
-                  className='-mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50'
-                >
-                  Company
-                </a>
+                  Contact Us
+                </Link>
               </div>
               <div className='py-6 '>
                 <CallAgent />
               </div>
+              <Link
+                href='tel:5624470025'
+                className='flex flex-row gap-2 items-center w-max hover:bg-stone-100 p-2 rounded-lg'
+              >
+                <PhoneIcon
+                  className='h-7 w-6 text-gray-400'
+                  aria-hidden='true'
+                />
+                <p> (562) 447-0025</p>
+              </Link>
+              <Link
+                href='mailto:halo@halo.com'
+                className='flex flex-row gap-2 items-center w-max hover:bg-stone-100 p-2 rounded-lg'
+              >
+                <EnvelopeIcon
+                  className='h-7 w-6 text-gray-400'
+                  aria-hidden='true'
+                />
+                <p> halo@halo.com</p>
+              </Link>
             </div>
           </div>
         </Dialog.Panel>
@@ -272,3 +413,99 @@ export default function Navbar() {
     </header>
   )
 }
+
+function classNames(...classes) {
+  return classes.filter(Boolean).join(' ')
+}
+
+const products = [
+  {
+    name: 'Products overview',
+    description: 'Sint aliqua anim nulla sunt mollit id pariatur',
+    href: '/products/explore-products',
+    icon: UsersIcon,
+  },
+  {
+    name: 'Insurance packages',
+    description: 'Sint aliqua anim nulla sunt mollit id pariatur',
+    href: '#',
+    icon: RectangleStackIcon,
+  },
+  {
+    name: 'Get a quote',
+    description: 'Sint aliqua anim nulla sunt mollit id pariatur',
+    href: '/company/contact',
+    icon: CurrencyDollarIcon,
+  },
+]
+const resources = [
+  {
+    name: 'Resources Overview',
+    description: 'Sint aliqua anim nulla sunt mollit id pariatur',
+    href: '/resources',
+    icon: LinkIcon,
+  },
+  {
+    name: 'FAQ',
+    description: 'Sint aliqua anim nulla sunt mollit id pariatur',
+    href: '/resources/faq',
+    icon: LightBulbIcon,
+  },
+  {
+    name: 'Get a quote',
+    description: 'Sint aliqua anim nulla sunt mollit id pariatur',
+    href: '/company/contact',
+    icon: CurrencyDollarIcon,
+  },
+  {
+    name: 'Contact Us',
+    description: 'Sint aliqua anim nulla sunt mollit id pariatur',
+    href: 'company/contact',
+    icon: ChatBubbleBottomCenterTextIcon,
+  },
+]
+const company = [
+  {
+    name: 'Why us?',
+    description: 'Sint aliqua anim nulla sunt mollit id pariatur',
+    href: '/company/',
+    icon: HandThumbUpIcon,
+  },
+  {
+    name: 'About',
+    description: 'Sint aliqua anim nulla sunt mollit id pariatur',
+    href: '/company/about',
+    icon: UserGroupIcon,
+  },
+  {
+    name: 'Testimonials',
+    description: 'Sint aliqua anim nulla sunt mollit id pariatur',
+    href: '/company/testimonials',
+    icon: HeartIcon,
+  },
+  {
+    name: 'Terms of service',
+    description: 'Sint aliqua anim nulla sunt mollit id pariatur',
+    href: '/company/terms',
+    icon: ClipboardDocumentIcon,
+  },
+  {
+    name: 'Privacy policy',
+    description: 'Sint aliqua anim nulla sunt mollit id pariatur',
+    href: '/company/policy',
+    icon: FingerPrintIcon,
+  },
+]
+
+const productsCallsToAction = [
+  {
+    name: 'Watch demo',
+    href: 'products/explore-products',
+    icon: PlayCircleIcon,
+  },
+  { name: 'Contact sales', href: '/company/contact', icon: PhoneIcon },
+]
+const companyCallsToAction = [
+  { name: 'halo@halo.com', href: 'mailto:halo@halo.com', icon: EnvelopeIcon },
+  { name: '(562) 447-0025', href: 'tel:5624470025', icon: PhoneIcon },
+]
