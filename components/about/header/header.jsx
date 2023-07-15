@@ -32,7 +32,7 @@ export default function Header() {
       {/* Header section */}
       <div className='px-6 md:pt-0 lg:px-8'>
         <div className='mx-auto max-w-2xl pt-12 text-center '>
-          <h2 className='text-4xl font-bold tracking-tight text-sky-500 sm:text-6xl'>
+          <h2 className='text-4xl font-bold tracking-tight text-black sm:text-6xl'>
             Halo Insurance
           </h2>
           <p className='mt-6 text-lg leading-8 text-black'>
