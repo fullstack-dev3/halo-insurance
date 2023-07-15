@@ -65,7 +65,7 @@ export default function LandingHeader({ landingHeader }) {
           <div className='mx-auto max-w-2xl gap-x-14 lg:mx-0 lg:flex lg:max-w-none lg:items-center'>
             <div className='w-full max-w-xl lg:shrink-0 xl:max-w-2xl'>
               <h1 className='text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl'>
-                Experience peace of mind with our comprehensive coverage.
+                Experience peace of mind with our comprehensive coverage
               </h1>
               {landingHeader?.length > 0 &&
                 landingHeader?.map((landingText) => (
